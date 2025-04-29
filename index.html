@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stok HP</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<script>
+    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQxxxxyyy/pub?output=csv";
+  
+    fetch(sheetURL)
+      .then(response => response.text())
+      .then(data => {
+        const rows = data.split("\n").slice(1); // skip header
+        const tableBody = document.querySelector("#stockTable tbody");
+  
+        rows.forEach((row, index) => {
+          const cols = row.split(",");
+          if (cols.length >= 7) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${index + 1}</td>
+              <td>${cols[0]}</td>
+              <td>${cols[1]}</td>
+              <td>${cols[2]}</td>
+              <td>${cols[3]}</td>
+              <td>${cols[4]}</td>
+              <td>${cols[5]}</td>
+              <td>${cols[6]}</td>
+            `;
+            tableBody.appendChild(tr);
+          }
+        });
+      })
+      .catch(error => console.error("Gagal load data:", error));
+  </script>
+  
+<body>
+
+  <h1>📱 Daftar Stok HP 📱</h1>
+  <h1>ALL PHONE STORE</h1>
+
+  <table id="stockTable">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Merk</th>
+        <th>Model</th>
+        <th>RAM</th>
+        <th>Storage</th>
+        <th>Kode</th>
+        <th>Stock</th>
+        <th>Harga</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data dari Google Sheets akan masuk di sini -->
+    </tbody>
+  </table>
+
+  <div class="footer">© 2025 Stock Smartphone ALL Phone Store - Powered by @rfd_as</div>
+  <!-- Sebelum penutup </body> -->
+<script src="script.js"></script>
+
+</body>
+</html>
